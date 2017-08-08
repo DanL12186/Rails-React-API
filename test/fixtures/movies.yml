@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  year: MyString
+  rating: 1
+  votes: 1
+  mpaa: MyString
+
+two:
+  year: MyString
+  rating: 1
+  votes: 1
+  mpaa: MyString
