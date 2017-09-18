@@ -1,5 +1,5 @@
 class Api::MoviesController < ApplicationController
-  before_action :set_movie!, only: [:show, :update, :destroy]
+  before_action :set_movie!, only: [:show, :update, :destroy, :votes]
 
   def index
     render json: Movie.all
@@ -7,6 +7,7 @@ class Api::MoviesController < ApplicationController
 
   def create
     movie = Movie.new(movie_params)
+    movie.votes = 1
     movie.save ? (render json: movie) : (render json: {message: movie.errors}, status: 400)
   end
 
@@ -20,6 +21,13 @@ class Api::MoviesController < ApplicationController
 
   def destroy
     @movie.destroy ? (render status: 204) : (render json: {message: "Unable to delete movie."}, status: 400)
+  end
+
+  def votes
+    @movie.votes += 1
+    rating = params[:rating].gsub("_",".").to_f
+    @movie.rating = rating
+    @movie.save
   end
 
   private
