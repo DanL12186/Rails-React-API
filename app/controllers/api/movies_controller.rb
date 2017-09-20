@@ -1,5 +1,5 @@
 class Api::MoviesController < ApplicationController
-  before_action :set_movie!, only: [:show, :update, :destroy, :votes]
+  before_action :set_movie!, only: [:show, :update, :destroy, :votes, :watchlist]
 
   def index
     render json: Movie.all
@@ -27,6 +27,11 @@ class Api::MoviesController < ApplicationController
     @movie.votes += 1
     rating = params[:rating].gsub("_",".").to_f
     @movie.rating = rating
+    @movie.save
+  end
+
+  def watchlist
+    @movie.list_id = 1
     @movie.save
   end
 
